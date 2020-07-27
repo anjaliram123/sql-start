@@ -1,0 +1,58 @@
+mysql> show databases;
++--------------------------------+
+| Database                       |
++--------------------------------+
+| information_schema             |
+| bakery                         |
+| books_db                       |
+| egen_car                       |
+| emp_db                         |
+| employees                      |
+| hb-01-one-to-one-uni           |
+| hb-03-one-to-many              |
+| hb-04-one-to-many-uni          |
+| hb-05-many-to-many             |
+| hb_student_tracker             |
+| hibernate_javabrains           |
+| instructor_schema              |
+| mysql                          |
+| performance_schema             |
+| spring_security_demo_plaintext |
+| student_schema                 |
+| user_schema                    |
+| user_table                     |
+| web_customer_tracker           |
++--------------------------------+
+20 rows in set (0.00 sec)
+
+mysql> use books_db;
+Database changed
+mysql> show tables;
++--------------------+
+| Tables_in_books_db |
++--------------------+
+| books              |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> SHOW TABLES;
++--------------------+
+| Tables_in_books_db |
++--------------------+
+| books              |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> DESC books;
++----------------+--------------+------+-----+---------+----------------+
+| Field          | Type         | Null | Key | Default | Extra          |
++----------------+--------------+------+-----+---------+----------------+
+| book_id        | int(11)      | NO   | PRI | NULL    | auto_increment |
+| title          | varchar(100) | YES  |     | NULL    |                |
+| author_fname   | varchar(100) | YES  |     | NULL    |                |
+| author_lname   | varchar(100) | YES  |     | NULL    |                |
+| released_year  | int(11)      | YES  |     | NULL    |                |
+| stock_quantity | int(11)      | YES  |     | NULL    |                |
+| pages          | int(11)      | YES  |     | NULL    |                |
++----------------+--------------+------+-----+---------+----------------+
+7 rows in set (0.03 sec)

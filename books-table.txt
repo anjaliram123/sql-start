@@ -56,3 +56,343 @@ mysql> DESC books;
 | pages          | int(11)      | YES  |     | NULL    |                |
 +----------------+--------------+------+-----+---------+----------------+
 7 rows in set (0.03 sec)
+
+mysql> SELECT * FROM books;
++---------+-----------------------------------------------------+--------------+----------------+---------------+----------------+-------+
+| book_id | title                                               | author_fname | author_lname   | released_year | stock_quantity | pages |
++---------+-----------------------------------------------------+--------------+----------------+---------------+----------------+-------+
+|       1 | The Namesake                                        | Jhumpa       | Lahiri         |          2003 |             32 |   291 |
+|       2 | Norse Mythology                                     | Neil         | Gaiman         |          2016 |             43 |   304 |
+|       3 | American Gods                                       | Neil         | Gaiman         |          2001 |             12 |   465 |
+|       4 | Interpreter of Maladies                             | Jhumpa       | Lahiri         |          1996 |             97 |   198 |
+|       5 | A Hologram for the King: A Novel                    | Dave         | Eggers         |          2012 |            154 |   352 |
+|       6 | The Circle                                          | Dave         | Eggers         |          2013 |             26 |   504 |
+|       7 | The Amazing Adventures of Kavalier & Clay           | Michael      | Chabon         |          2000 |             68 |   634 |
+|       8 | Just Kids                                           | Patti        | Smith          |          2010 |             55 |   304 |
+|       9 | A Heartbreaking Work of Staggering Genius           | Dave         | Eggers         |          2001 |            104 |   437 |
+|      10 | Coraline                                            | Neil         | Gaiman         |          2003 |            100 |   208 |
+|      11 | What We Talk About When We Talk About Love: Stories | Raymond      | Carver         |          1981 |             23 |   176 |
+|      12 | Where I'm Calling From: Selected Stories            | Raymond      | Carver         |          1989 |             12 |   526 |
+|      13 | White Noise                                         | Don          | DeLillo        |          1985 |             49 |   320 |
+|      14 | Cannery Row                                         | John         | Steinbeck      |          1945 |             95 |   181 |
+|      15 | Oblivion: Stories                                   | David        | Foster Wallace |          2004 |            172 |   329 |
+|      16 | Consider the Lobster                                | David        | Foster Wallace |          2005 |             92 |   343 |
++---------+-----------------------------------------------------+--------------+----------------+---------------+----------------+-------+
+16 rows in set (0.03 sec)
+
+
+mysql> SELECT CONCAT(author_fname,author_lname) AS name FROM books;
++---------------------+
+| name                |
++---------------------+
+| JhumpaLahiri        |
+| NeilGaiman          |
+| NeilGaiman          |
+| JhumpaLahiri        |
+| DaveEggers          |
+| DaveEggers          |
+| MichaelChabon       |
+| PattiSmith          |
+| DaveEggers          |
+| NeilGaiman          |
+| RaymondCarver       |
+| RaymondCarver       |
+| DonDeLillo          |
+| JohnSteinbeck       |
+| DavidFoster Wallace |
+| DavidFoster Wallace |
++---------------------+
+16 rows in set (0.03 sec)
+
+mysql> SELECT CONCAT(author_fname,' ', author_lname) AS fullname FROM books;
++----------------------+
+| fullname             |
++----------------------+
+| Jhumpa Lahiri        |
+| Neil Gaiman          |
+| Neil Gaiman          |
+| Jhumpa Lahiri        |
+| Dave Eggers          |
+| Dave Eggers          |
+| Michael Chabon       |
+| Patti Smith          |
+| Dave Eggers          |
+| Neil Gaiman          |
+| Raymond Carver       |
+| Raymond Carver       |
+| Don DeLillo          |
+| John Steinbeck       |
+| David Foster Wallace |
+| David Foster Wallace |
++----------------------+
+16 rows in set (0.00 sec)
+
+mysql> SELECT CONCAT(author_fname,',', author_lname) AS fullname FROM books;
++----------------------+
+| fullname             |
++----------------------+
+| Jhumpa,Lahiri        |
+| Neil,Gaiman          |
+| Neil,Gaiman          |
+| Jhumpa,Lahiri        |
+| Dave,Eggers          |
+| Dave,Eggers          |
+| Michael,Chabon       |
+| Patti,Smith          |
+| Dave,Eggers          |
+| Neil,Gaiman          |
+| Raymond,Carver       |
+| Raymond,Carver       |
+| Don,DeLillo          |
+| John,Steinbeck       |
+| David,Foster Wallace |
+| David,Foster Wallace |
++----------------------+
+16 rows in set (0.00 sec)
+
+//concat with seperator
+//The '-' is the seperator
+
+mysql> SELECT CONCAT_WS('-', title,author_fname,author_lname) FROM books;
++--------------------------------------------------------------------+
+| CONCAT_WS('-', title,author_fname,author_lname)                    |
++--------------------------------------------------------------------+
+| The Namesake-Jhumpa-Lahiri                                         |
+| Norse Mythology-Neil-Gaiman                                        |
+| American Gods-Neil-Gaiman                                          |
+| Interpreter of Maladies-Jhumpa-Lahiri                              |
+| A Hologram for the King: A Novel-Dave-Eggers                       |
+| The Circle-Dave-Eggers                                             |
+| The Amazing Adventures of Kavalier & Clay-Michael-Chabon           |
+| Just Kids-Patti-Smith                                              |
+| A Heartbreaking Work of Staggering Genius-Dave-Eggers              |
+| Coraline-Neil-Gaiman                                               |
+| What We Talk About When We Talk About Love: Stories-Raymond-Carver |
+| Where I'm Calling From: Selected Stories-Raymond-Carver            |
+| White Noise-Don-DeLillo                                            |
+| Cannery Row-John-Steinbeck                                         |
+| Oblivion: Stories-David-Foster Wallace                             |
+| Consider the Lobster-David-Foster Wallace                          |
++--------------------------------------------------------------------+
+16 rows in set (0.00 sec)
+
+//substring starts from 1 in sql unlike other programming langagues
+//like java, it also includes the end index where end index is
+//exclusive in java
+
+mysql> SELECT SUBSTRING('Hello world', 1, 4);
++--------------------------------+
+| SUBSTRING('Hello world', 1, 4) |
++--------------------------------+
+| Hell                           |
++--------------------------------+
+1 row in set (0.03 sec)
+
+mysql> SELECT SUBSTRING('Hello world', 7);
++-----------------------------+
+| SUBSTRING('Hello world', 7) |
++-----------------------------+
+| world                       |
++-----------------------------+
+1 row in set (0.00 sec)
+
+//starts from 3 and counts 8 characters
+mysql> SELECT SUBSTRING('Hello world', 3,8);
++-------------------------------+
+| SUBSTRING('Hello world', 3,8) |
++-------------------------------+
+| llo worl                      |
++-------------------------------+
+1 row in set (0.00 sec)
+
+//negative substring
+// it starts from back 
+// d is -1, l is -2 and r is -3
+mysql> SELECT SUBSTRING('Hello world', -3);
++------------------------------+
+| SUBSTRING('Hello world', -3) |
++------------------------------+
+| rld                          |
++------------------------------+
+1 row in set (0.03 sec)
+
+
+mysql> SELECT SUBSTRING(title, 10) FROM books;
++--------------------------------------------+
+| SUBSTRING(title, 10)                       |
++--------------------------------------------+
+| ake                                        |
+| hology                                     |
+| Gods                                       |
+| er of Maladies                             |
+| m for the King: A Novel                    |
+| e                                          |
+| ng Adventures of Kavalier & Clay           |
+|                                            |
+| eaking Work of Staggering Genius           |
+|                                            |
+| alk About When We Talk About Love: Stories |
+|  Calling From: Selected Stories            |
+| se                                         |
+| ow                                         |
+|  Stories                                   |
+| the Lobster                                |
++--------------------------------------------+
+
+mysql> SELECT SUBSTRING(title, 1,10) AS 'short-title' FROM books;
++-------------+
+| short-title |
++-------------+
+| The Namesa  |
+| Norse Myth  |
+| American G  |
+| Interprete  |
+| A Hologram  |
+| The Circle  |
+| The Amazin  |
+| Just Kids   |
+| A Heartbre  |
+| Coraline    |
+| What We Ta  |
+| Where I'm   |
+| White Nois  |
+| Cannery Ro  |
+| Oblivion:   |
+| Consider t  |
++-------------+
+16 rows in set (0.00 sec)
+
+//short cut for substring
+mysql> SELECT SUBSTR(title, 1,10) AS 'short-title' FROM books;
++-------------+
+| short-title |
++-------------+
+| The Namesa  |
+| Norse Myth  |
+| American G  |
+| Interprete  |
+| A Hologram  |
+| The Circle  |
+| The Amazin  |
+| Just Kids   |
+| A Heartbre  |
+| Coraline    |
+| What We Ta  |
+| Where I'm   |
+| White Nois  |
+| Cannery Ro  |
+| Oblivion:   |
+| Consider t  |
++-------------+
+16 rows in set (0.00 sec)
+
+
+//combine substring and concat
+mysql> SELECT CONCAT(SUBSTRING(title,1,10), '----') FROM books;
++---------------------------------------+
+| CONCAT(SUBSTRING(title,1,10), '----') |
++---------------------------------------+
+| The Namesa----                        |
+| Norse Myth----                        |
+| American G----                        |
+| Interprete----                        |
+| A Hologram----                        |
+| The Circle----                        |
+| The Amazin----                        |
+| Just Kids----                         |
+| A Heartbre----                        |
+| Coraline----                          |
+| What We Ta----                        |
+| Where I'm ----                        |
+| White Nois----                        |
+| Cannery Ro----                        |
+| Oblivion: ----                        |
+| Consider t----                        |
++---------------------------------------+
+16 rows in set (0.00 sec)
+
+
+mysql> SELECT CONCAT(SUBSTRING(title,1,10), '----')  AS 'short-title' FROM books;
++----------------+
+| short-title    |
++----------------+
+| The Namesa---- |
+| Norse Myth---- |
+| American G---- |
+| Interprete---- |
+| A Hologram---- |
+| The Circle---- |
+| The Amazin---- |
+| Just Kids----  |
+| A Heartbre---- |
+| Coraline----   |
+| What We Ta---- |
+| Where I'm ---- |
+| White Nois---- |
+| Cannery Ro---- |
+| Oblivion: ---- |
+| Consider t---- |
++----------------+
+16 rows in set (0.00 sec)
+
+//Repalce
+
+ SELECT REPLACE(title, 'e','a') FROM books;
++-----------------------------------------------------+
+| REPLACE(title, 'e','a')                             |
++-----------------------------------------------------+
+| Tha Namasaka                                        |
+| Norsa Mythology                                     |
+| Amarican Gods                                       |
+| Intarpratar of Maladias                             |
+| A Hologram for tha King: A Noval                    |
+| Tha Circla                                          |
+| Tha Amazing Advanturas of Kavaliar & Clay           |
+| Just Kids                                           |
+| A Haartbraaking Work of Staggaring Ganius           |
+| Coralina                                            |
+| What Wa Talk About Whan Wa Talk About Lova: Storias |
+| Whara I'm Calling From: Salactad Storias            |
+| Whita Noisa                                         |
+| Cannary Row                                         |
+| Oblivion: Storias                                   |
+| Considar tha Lobstar                                |
++-----------------------------------------------------+
+16 rows in set (0.00 sec)
+
+//Replace is case-sensitive
+//only lower case 'o' is replaced
+mysql> SELECT REPLACE('Hello wOrld','o','tt');
++---------------------------------+
+| REPLACE('Hello wOrld','o','tt') |
++---------------------------------+
+| Helltt wOrld                    |
++---------------------------------+
+1 row in set (0.00 sec)
+
+//Replace first ten characters in title
+mysql> SELECT SUBSTRING(REPLACE(title,'e','a'),1,10) AS 'short-title' FROM books;
++-------------+
+| short-title |
++-------------+
+| Tha Namasa  |
+| Norsa Myth  |
+| Amarican G  |
+| Intarprata  |
+| A Hologram  |
+| Tha Circla  |
+| Tha Amazin  |
+| Just Kids   |
+| A Haartbra  |
+| Coralina    |
+| What Wa Ta  |
+| Whara I'm   |
+| Whita Nois  |
+| Cannary Ro  |
+| Oblivion:   |
+| Considar t  |
++-------------+
+16 rows in set (0.00 sec)
+
+
+
